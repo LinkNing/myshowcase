@@ -42,6 +42,7 @@
 		<aspectj.version>1.7.4</aspectj.version>
 		<junit.version>4.11</junit.version>
 		<dbunit.version>2.5.0</dbunit.version>
+		<spring-test-dbunit.version>1.1.0</spring-test-dbunit.version>
 		<assertj.version>1.6.0</assertj.version>
 		<mockito.version>1.9.5</mockito.version>
 		<powermock.version>1.5.4</powermock.version>
@@ -672,13 +673,18 @@
 				</exclusions>
 			</dependency>
 
-			<!-- springside -->
+			<!-- dbunit -->
 			<dependency>
 				<groupId>org.dbunit</groupId>
 				<artifactId>dbunit</artifactId>
 				<version>${dbunit.version}</version>
 			</dependency>
-
+			
+			<dependency>
+				<groupId>com.github.springtestdbunit</groupId>
+				<artifactId>spring-test-dbunit</artifactId>
+				<version>${spring-test-dbunit.version}</version>
+			</dependency>
 
 			<!-- springside -->
 			<dependency>

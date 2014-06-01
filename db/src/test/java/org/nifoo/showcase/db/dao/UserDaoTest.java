@@ -28,8 +28,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * DbUnit的使用.
@@ -37,10 +42,11 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  * <a href='http://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/'>DbUnit使用入门</a><br/>
  * </p>
  * <p>
- * DbUnit包括三个核心部分:
+ * DbUnit的核心部分:
  * <li>IDatabaseConnection ：描述DbUnit数据库连接接口；
  * <li>IDataSet：数据集操作接口；
  * <li>DatabaseOperation：描述测试用例测试方法执行前与执行后所做操作的抽象类；
+ * <li>Assertion: 唯一的方法，assertEqual，断言两个数据集或数据表相同。
  * </p>
  * 
  * @author Nifoo Ning
@@ -48,10 +54,13 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml" })
-@ActiveProfiles("prod")
+@ActiveProfiles("test")
 @TransactionConfiguration(defaultRollback = true)
 // 配置事务是使用哪个事务管理器和默认是否回滚,通常继承AbstractTransactionalJUnit4SpringContextTests后不需配置 
-//@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, //
+		DirtiesContextTestExecutionListener.class, //
+		TransactionalTestExecutionListener.class })
+//@Transactional
 public class UserDaoTest {
 
 	@Resource
@@ -76,15 +85,19 @@ public class UserDaoTest {
 	}
 
 	@Before
+	@Transactional
 	public void setUp() throws Exception {
 		//		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("dbunitdemo-seed.xml"));
-		databaseTester.setDataSet(getDataSet("data/dbunitdemo-seed.xml"));
+		
+		databaseTester.setDataSet(getDataSet("/data/dbunitdemo-seed.xml"));
 		databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
 		databaseTester.onSetup();
 	}
 
 	@After
+	@Transactional
 	public void tearDown() throws Exception {
+		databaseTester.setDataSet(getDataSet("/data/dbunitdemo-seed.xml"));
 		databaseTester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
 		databaseTester.onTearDown();
 	}
@@ -144,14 +157,21 @@ public class UserDaoTest {
 		} catch (EmptyResultDataAccessException e) {
 			// correct, nothing need to do.
 		}
+		
+		assertEquals(3, userDao.list().size());
 
 		/* 下面验证数据集  */
 		QueryDataSet actual = new QueryDataSet(getConnection());
-		actual.addTable("user", "select id, username, password, salt from user");
+		actual.addTable("user", "select id, username, password, salt from user order by id");
+		ITable tab1 = actual.getTable("user");
+		
+		IDataSet expected = getDataSet("/data/dbunitdemo-user001.xml");
+		ITable tab = expected.getTable("user");
+		
+		assertEquals(3, tab.getRowCount());
 
-		IDataSet expected = getDataSet("data/dbunitdemo-user001.xml");
-
-		Assertion.assertEquals(expected, actual);
+		//Assertion.assertEquals(expected, actual);
+		Assertion.assertEquals(tab, tab1);
 	}
 
 	@Test

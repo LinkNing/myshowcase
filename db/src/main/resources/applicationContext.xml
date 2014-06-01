@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
@@ -15,43 +12,46 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd"
 	default-lazy-init="true">
 	<context:annotation-config />
-	
+
 	<!-- =================== scan spring bean =================== -->
 	<context:component-scan base-package="org.nifoo.showcase.db" />
 
 	<!-- =================== auto proxy =================== -->
 	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
-	
-    <!-- 使用annotation定义事务 -->  
-    <!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />   -->
-    <tx:annotation-driven transaction-manager="transactionManager" />  
-    
-	  <!-- Jdbc单数据源事务 -->  
-    <bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
-        <property name="dataSource" ref="dataSource" />  
-    </bean>  
-  
+
+	<!-- 使用annotation定义事务 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" 
+		/> -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Jdbc单数据源事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
 
 	<!-- =================== System's properties files =================== -->
-	<!-- <context:property-placeholder location="classpath*:/config.properties" file-encoding="utf-8"/> -->
-	
-	<bean id="userDao" class="org.nifoo.showcase.db.dao.jdbc.UserDaoImpl"/>
+	<!-- <context:property-placeholder location="classpath*:/config.properties" 
+		file-encoding="utf-8"/> -->
+
+	<bean id="userDao" class="org.nifoo.showcase.db.dao.jdbc.UserDaoImpl" />
 
 	<!-- production环境 -->
 	<beans profile="prod">
-		<context:property-placeholder ignore-resource-not-found="true" location="classpath*:/config.properties"/>
-		
-		<!-- 初始化数据表结构 -->
-        <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL" enabled="false">
-            <jdbc:script location="classpath:sql/dbunitdemo.sql" encoding="UTF-8"/>
-        </jdbc:initialize-database>
+		<context:property-placeholder
+			ignore-resource-not-found="true" location="classpath*:/config.properties" />
 
-		<!-- 
-		<bean id="org.h2.tools.Server" class="org.h2.tools.Server"
-			factory-method="createTcpServer" init-method="start" destroy-method="stop">
-			<constructor-arg value="-tcp,-tcpAllowOthers" />
-		</bean>
-		-->
+		<!-- 初始化数据表结构 -->
+		<jdbc:initialize-database data-source="dataSource"
+			ignore-failures="ALL" enabled="false">
+			<jdbc:script location="classpath:sql/dbunitdemo.sql"
+				encoding="UTF-8" />
+		</jdbc:initialize-database>
+
+		<!-- <bean id="org.h2.tools.Server" class="org.h2.tools.Server" factory-method="createTcpServer" 
+			init-method="start" destroy-method="stop"> <constructor-arg value="-tcp,-tcpAllowOthers" 
+			/> </bean> -->
 
 		<!-- Tomcat JDBC连接池 -->
 		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
@@ -70,9 +70,11 @@
 			ignore-resource-not-found="true" location="classpath*:/config-test.properties" />
 
 		<!-- 初始化数据表结构 -->
-        <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL" enabled="true">
-            <jdbc:script location="classpath:sql/dbunitdemo.sql" encoding="UTF-8"/>
-        </jdbc:initialize-database>
+		<jdbc:initialize-database data-source="dataSource"
+			ignore-failures="ALL" enabled="true">
+			<jdbc:script location="classpath:sql/dbunitdemo.sql"
+				encoding="UTF-8" />
+		</jdbc:initialize-database>
 
 		<!-- Tomcat JDBC连接池 -->
 		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
@@ -83,13 +85,24 @@
 			<property name="password" value="${jdbc.password}" />
 			<property name="defaultAutoCommit" value="false" />
 		</bean>
-		
-		<!-- 
-		<jdbc:embedded-database id="dataSource" type="H2">  
-        <jdbc:script location="classpath:sql/h2/schema.sql" />  
-        <jdbc:script location="classpath:sql/h2/import-data.sql" encoding="UTF-8" />  
-    	</jdbc:embedded-database>  
-		-->
+
+		<!-- 使用 spring-test-dbunit 时，设置正确的数据源类型，避免WARN. -->
+		<bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
+			<property name="datatypeFactory">
+				<bean class="org.dbunit.ext.h2.H2DataTypeFactory" />
+			</property>
+		</bean>
+
+		<!-- 使用 spring-test-dbunit 时，自定义 IDatabaseConnections. -->
+		<bean id="dbUnitDatabaseConnection"
+			class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
+			<property name="databaseConfig" ref="dbUnitDatabaseConfig" />
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+
+		<!-- <jdbc:embedded-database id="dataSource" type="H2"> <jdbc:script location="classpath:sql/h2/schema.sql" 
+			/> <jdbc:script location="classpath:sql/h2/import-data.sql" encoding="UTF-8" 
+			/> </jdbc:embedded-database> -->
 
 	</beans>
 </beans>
