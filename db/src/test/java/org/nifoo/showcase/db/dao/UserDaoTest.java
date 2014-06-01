@@ -13,6 +13,7 @@ import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -27,12 +28,24 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+/**
+ * DbUnit的使用.
+ * <p>
+ * <a href='http://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/'>DbUnit使用入门</a><br/>
+ * </p>
+ * <p>
+ * DbUnit包括三个核心部分:
+ * <li>IDatabaseConnection ：描述DbUnit数据库连接接口；
+ * <li>IDataSet：数据集操作接口；
+ * <li>DatabaseOperation：描述测试用例测试方法执行前与执行后所做操作的抽象类；
+ * </p>
+ * 
+ * @author Nifoo Ning
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml" })
 @ActiveProfiles("prod")
@@ -49,6 +62,8 @@ public class UserDaoTest {
 	@Resource
 	public void setDataSource(DataSource dataSource) {
 		//		databaseTester = new DataSourceDatabaseTester(dataSource);
+
+		// 设置正确的数据源类型，避免WARN
 		databaseTester = new DataSourceDatabaseTester(dataSource) {
 
 			@Override
@@ -63,7 +78,7 @@ public class UserDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		//		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("dbunitdemo-seed.xml"));
-		databaseTester.setDataSet(getDataSet("dbunitdemo-seed.xml"));
+		databaseTester.setDataSet(getDataSet("data/dbunitdemo-seed.xml"));
 		databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
 		databaseTester.onSetup();
 	}
@@ -129,6 +144,14 @@ public class UserDaoTest {
 		} catch (EmptyResultDataAccessException e) {
 			// correct, nothing need to do.
 		}
+
+		/* 下面验证数据集  */
+		QueryDataSet actual = new QueryDataSet(getConnection());
+		actual.addTable("user", "select id, username, password, salt from user");
+
+		IDataSet expected = getDataSet("data/dbunitdemo-user001.xml");
+
+		Assertion.assertEquals(expected, actual);
 	}
 
 	@Test
@@ -150,12 +173,5 @@ public class UserDaoTest {
 		assertNotNull(dbUser);
 		assertEquals("testAdmin", dbUser.getUsername());
 		assertEquals("testPassword", dbUser.getPassword());
-
-		//		QueryDataSet actual = new QueryDataSet(getConnection());
-		//		actual.addTable("user", "select * from user where user.nick = 'user001'");
-		//
-		//		IDataSet expected = getDataSet("user001.xml");
-		//
-		//		Assertion.assertEquals(expected, actual);
 	}
 }
