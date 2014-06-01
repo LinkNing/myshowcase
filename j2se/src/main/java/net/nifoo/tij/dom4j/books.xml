@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="books.xsd">
+	<!--This is a test for dom4j, holen, 2004.9.11-->
+	<book show="yes">
+		<title>Dom4j Tutorials</title>
+	</book>
+	<book show="yes">
+		<title>Lucene Studing</title>
+	</book>
+	<book show="no">
+		<title>Lucene in Action</title>
+	</book>
+	<owner>O'Reilly</owner>
+</books>
