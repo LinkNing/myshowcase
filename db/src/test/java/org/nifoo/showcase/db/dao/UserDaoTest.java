@@ -158,20 +158,13 @@ public class UserDaoTest {
 			// correct, nothing need to do.
 		}
 		
-		assertEquals(3, userDao.list().size());
-
-		/* 下面验证数据集  */
+		/* 下面验证数据集,注意数据的顺序也影响结果的正确  */
 		QueryDataSet actual = new QueryDataSet(getConnection());
 		actual.addTable("user", "select id, username, password, salt from user order by id");
-		ITable tab1 = actual.getTable("user");
 		
 		IDataSet expected = getDataSet("/data/dbunitdemo-user001.xml");
-		ITable tab = expected.getTable("user");
 		
-		assertEquals(3, tab.getRowCount());
-
-		//Assertion.assertEquals(expected, actual);
-		Assertion.assertEquals(tab, tab1);
+		Assertion.assertEquals(expected, actual);
 	}
 
 	@Test
