@@ -15,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +57,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 @TransactionConfiguration(defaultRollback = true)
 // 注册DbUnitTestExecutionListener后，Spring Test DbUnit提供的注解就可以被Spring Test处理
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, //
-		DirtiesContextTestExecutionListener.class, //
+		//DirtiesContextTestExecutionListener.class, //
 		// DbUnitTestExecutionListener.class
 		TransactionDbUnitTestExecutionListener.class })
 @Transactional
