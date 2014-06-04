@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,26 +52,32 @@ public class UserServiceWithCacheTest {
 		User user3 = UserData.randomNewUser(3L);
 
 		when(userDao.list()).thenReturn(users);
-		when(userDao.get(1L)).thenReturn(user1);
+		when(userDao.get(1L)).thenReturn(user1).thenThrow(IllegalStateException.class);
 		when(userDao.get(2L)).thenReturn(user2);
 		when(userDao.update(user3)).thenReturn(user3);
 
 		userService.getAll(); // get from db
-
 		userService.get(1L); // get from db
+		userService.get(2L); // get from db
+		
 		userService.get(1L); // get from cache
-		userService.get(1L); // get from cache
-		userService.get(1L); // get from cache
+		userService.get(2L); // get from cache
 
-		userService.delete(1L); // clear the cache
-		userService.get(1L); // get from db
+		userService.delete(1L); // delete the recode, clear the cache
+		try {
+			userService.get(1L); // get nothing, throw an Exception
+			Assert.fail("the recode has been deleted, it should get nothing!");
+		} catch (IllegalStateException e) {
+			// nothing need to do
+		}
 		
 		userService.save(user3);
 		userService.get(3L); // get from cache
-		userService.get(1L); // get from cache
+		userService.get(2L); // get from cache
 		
 		verify(userDao).list();
 		verify(userDao, times(2)).get(1L);
+		verify(userDao, times(1)).get(2L);
 		verify(userDao, times(0)).get(3L);
 	}
 	
