@@ -32,9 +32,8 @@
 		<!-- 默认filter文件夹是${basedir}/src/main/filters/ -->
 		<!-- <filters> <filter>filters/filter1.properties</filter> </filters> -->
 
-		<!-- <resources> <resource> <targetPath>META-INF/db</targetPath> <filtering>false</filtering> 
-			<directory>${basedir}/src/main/resources</directory> <includes> <include>configuration.xml</include> 
-			</includes> <excludes> <exclude>**/*.properties</exclude> </excludes> </resource> 
+		<!-- <resources> <resource> <targetPath>META-INF/db</targetPath> <filtering>false</filtering> <directory>${basedir}/src/main/resources</directory> 
+			<includes> <include>configuration.xml</include> </includes> <excludes> <exclude>**/*.properties</exclude> </excludes> </resource> 
 			</resources> <testResources> ... </testResources> -->
 
 		<plugins>
@@ -320,6 +319,12 @@
 		<!-- GENERAL UTILS end -->
 
 		<!-- === utils end === -->
+
+		<!-- ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
 
 		<!-- === test begin === -->
 		<dependency>
