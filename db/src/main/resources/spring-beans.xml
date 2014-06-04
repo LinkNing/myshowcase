@@ -11,25 +11,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd"
 	default-lazy-init="true">
-	<context:annotation-config />
 
-	<!-- =================== scan spring bean =================== -->
-	<context:component-scan base-package="org.nifoo.showcase.db" />
-
-	<!-- =================== auto proxy =================== -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-
-	<import resource="classpath:spring-beans.xml"/>
-	<import resource="classpath:spring-datasource.xml"/>
-
-	<!-- production环境 -->
-	<beans profile="prod">
-		<context:property-placeholder ignore-resource-not-found="true" location="classpath*:/config.properties" />
-	</beans>
-
-	<!-- local development环境 -->
-	<beans profile="dev, test">
-		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/config-test.properties" />
-	</beans>
+	<bean id="userDao" class="org.nifoo.showcase.db.dao.jdbc.UserDaoImpl" />
+	<bean id="userService" class="org.nifoo.showcase.db.service.UserService" />
+	
 </beans>
