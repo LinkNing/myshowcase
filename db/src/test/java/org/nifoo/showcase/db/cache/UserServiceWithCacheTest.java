@@ -17,29 +17,37 @@ import org.nifoo.showcase.db.dao.UserDao;
 import org.nifoo.showcase.db.data.UserData;
 import org.nifoo.showcase.db.entity.User;
 import org.nifoo.showcase.db.service.UserService;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import com.google.common.collect.Lists;
 
 //@RunWith(MockitoJUnit44Runner.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={CacheConfig.class, CacheBeansConfig.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class })
+@ContextConfiguration(classes = { CacheConfig.class, CacheBeansConfig.class })
 @ActiveProfiles("test")
+@DirtiesContext
 public class UserServiceWithCacheTest {
 
 	@InjectMocks
 	@Resource
 	private UserService userService;
-	
+
 	@Mock
 	private UserDao userDao;
-	
-	@Before  
-	public void initMocks() {  
-	    MockitoAnnotations.initMocks(this);  
-	}  
+
+	@Before
+	public void initMocks() {
+		MockitoAnnotations.initMocks(this);
+
+		userService.deleteAll(); // 清空缓存
+	}
 
 	@Test
 	public final void testUserCachable() throws Exception {
@@ -59,7 +67,7 @@ public class UserServiceWithCacheTest {
 		userService.getAll(); // get from db
 		userService.get(1L); // get from db
 		userService.get(2L); // get from db
-		
+
 		userService.get(1L); // get from cache
 		userService.get(2L); // get from cache
 
@@ -70,17 +78,17 @@ public class UserServiceWithCacheTest {
 		} catch (IllegalStateException e) {
 			// nothing need to do
 		}
-		
+
 		userService.save(user3);
 		userService.get(3L); // get from cache
 		userService.get(2L); // get from cache
-		
+
 		verify(userDao).list();
 		verify(userDao, times(2)).get(1L);
 		verify(userDao, times(1)).get(2L);
 		verify(userDao, times(0)).get(3L);
 	}
-	
+
 	/**
 	 * Cache注解运行流程（同一方法上的注解）:
 	 * 1、首先执行@CacheEvict（如果beforeInvocation=true且condition 通过），如果allEntries=true，则清空所有
@@ -96,7 +104,7 @@ public class UserServiceWithCacheTest {
 	 * @author Nifoo Ning
 	 *
 	 */
-	public void myDoc1(){
+	public void myDoc1() {
 		// 此方法只是用注释来记文档
 	}
 

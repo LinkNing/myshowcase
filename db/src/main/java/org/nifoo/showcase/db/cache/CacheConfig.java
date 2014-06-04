@@ -23,7 +23,7 @@ public class CacheConfig implements CachingConfigurer {
 	public CacheManager cacheManager() {
 
 		try {
-			net.sf.ehcache.CacheManager ehcacheCacheManager = new net.sf.ehcache.CacheManager(new ClassPathResource(
+			net.sf.ehcache.CacheManager ehcacheCacheManager = net.sf.ehcache.CacheManager.create(new ClassPathResource(
 					"ehcache.xml").getInputStream());
 
 			EhCacheCacheManager cacheCacheManager = new EhCacheCacheManager(ehcacheCacheManager);
