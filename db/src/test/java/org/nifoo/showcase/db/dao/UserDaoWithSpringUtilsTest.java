@@ -48,7 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:/applicationContext.xml", "classpath:/spring-beans.xml" })
 @ActiveProfiles("test")
 @TransactionConfiguration(defaultRollback = true, transactionManager = "transactionManager")
 // 配置事务是使用哪个事务管理器和默认是否回滚,通常继承AbstractTransactionalJUnit4SpringContextTests后不需配置 

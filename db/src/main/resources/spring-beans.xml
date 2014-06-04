@@ -13,6 +13,6 @@
 	default-lazy-init="true">
 
 	<bean id="userDao" class="org.nifoo.showcase.db.dao.jdbc.UserDaoImpl" />
-	<bean id="userService" class="org.nifoo.showcase.db.service.UserService" />
+	<bean id="userService" class="org.nifoo.showcase.db.service.UserServiceImplByDao" />
 	
 </beans>

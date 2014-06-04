@@ -3,6 +3,7 @@ package org.nifoo.showcase.db.cache;
 import org.mockito.Mockito;
 import org.nifoo.showcase.db.dao.UserDao;
 import org.nifoo.showcase.db.service.UserService;
+import org.nifoo.showcase.db.service.UserServiceImplByDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,7 +12,7 @@ public class CacheBeansConfig{
 	
 	@Bean
 	public UserService getUserService(){
-		return new UserService();
+		return new UserServiceImplByDao();
 	}
 	
 	@Bean

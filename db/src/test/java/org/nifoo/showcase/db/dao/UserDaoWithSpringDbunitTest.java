@@ -52,7 +52,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:/applicationContext.xml", "classpath:/spring-beans.xml" })
 @ActiveProfiles("test")
 @TransactionConfiguration(defaultRollback = true)
 // 注册DbUnitTestExecutionListener后，Spring Test DbUnit提供的注解就可以被Spring Test处理

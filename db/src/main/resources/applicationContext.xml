@@ -19,7 +19,6 @@
 	<!-- =================== auto proxy =================== -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
-	<import resource="classpath:spring-beans.xml"/>
 	<import resource="classpath:spring-datasource.xml"/>
 
 	<!-- production环境 -->
