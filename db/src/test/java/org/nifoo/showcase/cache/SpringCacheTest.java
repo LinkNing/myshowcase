@@ -9,6 +9,12 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * 参考文章： http://jinnianshilongnian.iteye.com/blog/2001040
+ * 
+ * @author Nifoo Ning
+ *
+ */
 public class SpringCacheTest {
 	@Test
 	public void test() throws IOException {

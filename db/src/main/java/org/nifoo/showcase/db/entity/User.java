@@ -17,6 +17,18 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public User(Long id, Long organizationId, String username, String password, String salt, String roleIds,
+			Boolean locked) {
+		super();
+		this.id = id;
+		this.organizationId = organizationId;
+		this.username = username;
+		this.password = password;
+		this.salt = salt;
+		this.roleIds = roleIds;
+		this.locked = locked;
+	}
 
 	public Long getId() {
 		return id;
