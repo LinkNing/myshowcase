@@ -29,25 +29,24 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
  * spring-test-dbunit的使用,以注解的方式使得DbUnit.
  * <p>
  * <a href='http://rockingware.com/2014/01/spring-test-dbunit.html'>使用Spring Test DbUnit进行数据库集成测试</a>
- * </p>
  * 
  * <p>
  * 核心部分:
+ * <ul>
  * <li>@DatabaseSetup指定测试方法执行之前数据库的初始化状态。
  * <li>@ExpectedDatabase指定测试方法执行之后期望的数据库状态。assertionMode = DatabaseAssertionMode.NON_STRICT表示只有XXXTest.testXXX.expected.xml中指定的表和列才会被断言，未指定的表和列将会被忽视。
  * <li>@DatabaseTearDown用于将数据库恢复到测试执行方法之前的状态。上面的例子，@DatabaseTearDown(value = "XXXTest.testXXX.expected.xml", type = DatabaseOperation.DELETE)将根据XXXTest.testXXX.expected.xml中的主键，从数据库删除相应数据。
- * </p>
+ * </ul>
  * 
  * <p>
- * Spring Test DbUnit的执行过程如下：<br/>
- * <code>@DatabaseSetup -> Test Method执行 -> @ExpectedDatabase -> @DatabaseTearDown</code>
- * </p>
+ * Spring Test DbUnit的执行过程如下：<br>
+ * <code>{@literal @DatabaseSetup -> Test Method执行  -> @ExpectedDatabase -> @DatabaseTearDown}</code>
  * 
  * <p>
  * Spring Test框架本身提供的 TransactionalTestExecutionListener 和 @Transactional 增强后事务边界范围仅限于在测试方法
  * Test Method 内。 Spring Teset DbUnit提供了 TransactionDbUnitTestExecutionListener 会将事务边界扩大到
  * Spring Test DbUnit执行的整个过程。
- * </p>
+ * 
  * @author Nifoo Ning
  *
  */

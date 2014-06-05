@@ -61,14 +61,12 @@
 		<maven>3.0.0</maven>
 	</prerequisites>
 
-	<!-- 设定除中央仓库 (repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查询，如有Nexus私服, 取消注释并指向正确的服务器地址 
-		<repositories> <repository> <id>nexus</id> <name>Team Nexus Repository</name> 
-		<url>http://localhost:8081/nexus/content/groups/public</url> </repository> 
-		</repositories> -->
+	<!-- 设定除中央仓库 (repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查询，如有Nexus私服, 取消注释并指向正确的服务器地址 <repositories> <repository> <id>nexus</id> 
+		<name>Team Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> </repository> </repositories> -->
 
-	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址 <pluginRepositories> <pluginRepository> 
-		<id>nexus</id> <name>Team Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> 
-		<snapshots> <enabled>false</enabled> </snapshots> </pluginRepository> </pluginRepositories> -->
+	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址 <pluginRepositories> <pluginRepository> <id>nexus</id> <name>Team Nexus Repository</name> 
+		<url>http://localhost:8081/nexus/content/groups/public</url> <snapshots> <enabled>false</enabled> </snapshots> </pluginRepository> 
+		</pluginRepositories> -->
 
 	<!-- 预定义依赖项的version,scope与exclusions,子项目中只需定义groupId 与 artifactId 即可 -->
 	<dependencyManagement>
@@ -679,7 +677,7 @@
 				<artifactId>dbunit</artifactId>
 				<version>${dbunit.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.github.springtestdbunit</groupId>
 				<artifactId>spring-test-dbunit</artifactId>
@@ -777,7 +775,7 @@
 				<version>${h2.version}</version>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<!-- mysql -->
 			<dependency>
 				<groupId>mysql</groupId>
@@ -985,33 +983,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.0</version>
-					<configuration>
-						<reportPlugins>
-							<plugin>
-								<groupId>org.apache.maven.plugins</groupId>
-								<artifactId>maven-project-info-reports-plugin</artifactId>
-								<version>2.4</version>
-								<configuration>
-									<encoding>UTF-8</encoding>
-									<dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-									<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-								</configuration>
-							</plugin>
-
-							<!--java doc -->
-							<plugin>
-								<groupId>org.apache.maven.plugins</groupId>
-								<artifactId>maven-javadoc-plugin</artifactId>
-								<version>2.8</version>
-								<configuration>
-									<stylesheet>java</stylesheet>
-									<encoding>UTF-8</encoding>
-									<charset>UTF-8</charset>
-								</configuration>
-							</plugin>
-						</reportPlugins>
-					</configuration>
+					<version>3.3</version>
 				</plugin>
 
 				<!-- install插件 -->
@@ -1078,6 +1050,25 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<stylesheet>java</stylesheet>
+					<encoding>UTF-8</encoding>
+					<charset>UTF-8</charset>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<profiles>
 		<!-- 执行@Category(Smoke.class)的TestCase -->

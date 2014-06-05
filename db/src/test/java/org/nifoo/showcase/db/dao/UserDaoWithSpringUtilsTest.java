@@ -32,17 +32,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * DbUnit的使用.
- * <p>
- * <a href='http://www.shenyanchao.cn/blog/2013/06/27/usage-dbunit/'>DbUnit使用入门</a><br/>
- * </p>
- * <p>
- * DbUnit的核心部分:
- * <li>IDatabaseConnection ：描述DbUnit数据库连接接口；
- * <li>IDataSet：数据集操作接口；
- * <li>DatabaseOperation：描述测试用例测试方法执行前与执行后所做操作的抽象类；
- * <li>Assertion: 唯一的方法，assertEqual，断言两个数据集或数据表相同。
- * </p>
+ * 使用 Spring JDBC 辅助测试.
  * 
  * @author Nifoo Ning
  *
@@ -50,8 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/applicationContext.xml", "classpath:/spring-beans.xml" })
 @ActiveProfiles("test")
-@TransactionConfiguration(defaultRollback = true, transactionManager = "transactionManager")
-// 配置事务是使用哪个事务管理器和默认是否回滚,通常继承AbstractTransactionalJUnit4SpringContextTests后不需配置 
+@TransactionConfiguration(defaultRollback = true)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, //
 		//DirtiesContextTestExecutionListener.class, //
 		TransactionalTestExecutionListener.class, })
@@ -126,7 +115,6 @@ public class UserDaoWithSpringUtilsTest {
 	}
 
 	@Test
-	//@Transactional
 	public void testSave() throws Exception {
 		User user = new User();
 		user.setPassword("testPassword");

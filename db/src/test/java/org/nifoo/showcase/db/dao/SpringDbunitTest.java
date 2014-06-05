@@ -10,18 +10,17 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
 /**
  * 创建自定义的组合注解简化 spring-test-dbunit 的使用.
- * <p/>
+ * <p>
  * 
  * 测试类上注解简化如下：
- * <pre>
- * <code> {@literal @}RunWith(SpringJUnit4ClassRunner.class) 
- * {@literal @}SpringDbUnitTest
+ * <pre><code>
+ * {@code @RunWith(SpringJUnit4ClassRunner.class) }
+ * {@code @SpringDbUnitTest }
  * public class XXXTest {
  *     ...
  *     }
@@ -35,9 +34,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 @Target(value = ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ContextConfiguration(value = "classpath:applicationContext.xml")
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-		DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class })
-@TransactionConfiguration(transactionManager = "transactionManager")
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, //
+		DirtiesContextTestExecutionListener.class, //
+		DbUnitTestExecutionListener.class })
+@TransactionConfiguration(defaultRollback = true)
 public @interface SpringDbunitTest {
- // nothing need to do.
+	// nothing need to do.
 }
