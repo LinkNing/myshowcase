@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<sys_resource id="1" name="资源" type="menu" url="[null]" parent_id="0" parent_ids="0/" permission="organization:*" available="true" />
+	<sys_resource id="11" name="组织机构管理" type="menu" url="/organization" parent_id="1" parent_ids="0/1/" permission="organization:*" available="true" />
+	<sys_resource id="12" name="组织机构新增" type="button" parent_id="11" parent_ids="0/1/11/" permission="organization:create" available="true" />
+	<sys_resource id="13" name="组织机构修改" type="button" parent_id="11" parent_ids="0/1/11/" permission="organization:update" available="true" />
+	<sys_resource id="14" name="组织机构删除" type="button" parent_id="11" parent_ids="0/1/11/" permission="organization:delete" available="true" />
+	<sys_resource id="15" name="组织机构查看" type="button" parent_id="11" parent_ids="0/1/11/" permission="organization:view" available="true" />
+</dataset>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nifoo.showcase.website.dao.UserMapper">
+
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" />
+
+	<resultMap id="userResultMap" type="user">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="salt" column="salt" />
+		<result property="locked" column="locked" />
+	</resultMap>
+
+	<insert id="add" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_user(username, password, salt, locked)
+		values (#{username},#{password},#{salt},#{locked})
+	</insert>
+
+	<update id="update" parameterType="User">
+		update sys_user set
+		username = #{username},
+		password = #{password},
+		salt = #{salt},
+		locked = #{locked}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="long">
+		delete from sys_user where id = #{id}
+	</delete>
+
+	<select id="get" parameterType="long" resultType="User" resultMap="userResultMap">
+		select id, username, password, salt, locked
+		from sys_user where id = #{id}
+	</select>
+
+	<select id="list" resultType="User" resultMap="userResultMap">
+		select id, username, password, salt, locked from sys_user
+	</select>
+
+	<select id="getByName" parameterType="string" resultType="User" resultMap="userResultMap">
+		select id, username, password, salt, locked 
+		from sys_user where username = #{username}
+	</select>
+
+</mapper>
