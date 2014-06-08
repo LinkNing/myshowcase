@@ -246,6 +246,7 @@
 		</dependency>
 
 		<!-- j2ee web spec -->
+		<!-- 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -266,6 +267,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		-->
 		<!-- WEB end -->
 
 		<!-- LOGGING begin -->
@@ -371,6 +373,18 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- === test end === -->
+
+		<!-- jetty -->
+		<dependency>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jsp</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>
