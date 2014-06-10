@@ -7,6 +7,7 @@
 <body>
 	<div>
 	<h1>Welcome to user pages.</h1>
+	${message}
 	</div>
 </body>
 </html>
