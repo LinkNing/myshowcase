@@ -1,5 +1,8 @@
 package org.nifoo.showcase.website.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -7,11 +10,19 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class User {
 
 	private Long id;
+	
 	private Long organizationId;
+	
+	@NotNull(message="{username.reqired}")
 	private String username;
+	
+	@Size(min=4, message="{password.length}")
 	private String password;
+
 	private String salt;
+	
 	private String roleIds;
+	
 	private Boolean locked;
 
 	public User() {

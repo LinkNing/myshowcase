@@ -246,28 +246,10 @@
 		</dependency>
 
 		<!-- j2ee web spec -->
-		<!-- 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jsp-api</artifactId>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>javax.servlet-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> <scope>provided</scope> </dependency> 
+			<dependency> <groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> </dependency> <dependency> <groupId>javax.servlet</groupId> 
+			<artifactId>jsp-api</artifactId> <scope>provided</scope> <exclusions> <exclusion> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
 		<!-- WEB end -->
 
 		<!-- LOGGING begin -->
@@ -334,6 +316,16 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
+		</dependency>
+
+		<!-- JSON begin -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<!-- === test begin === -->

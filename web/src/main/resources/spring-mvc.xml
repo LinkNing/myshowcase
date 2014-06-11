@@ -8,7 +8,7 @@
 	<context:annotation-config />
 
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages" />
+		<property name="basename" value="classpath:messages/messages" />
 		<property name="fileEncodings" value="utf-8" />
 		<property name="cacheSeconds" value="120" />
 	</bean>
@@ -19,7 +19,7 @@
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven/>
 
 	<!-- Definition of View Resolver -->
 	<bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
