@@ -12,7 +12,7 @@ create table sys_user (
   role_ids varchar(100),
   locked bool default false,
   constraint pk_sys_user primary key(id)
-) charset=utf8 ENGINE=InnoDB;
+) charset=utf8;
 create unique index idx_sys_user_username on sys_user(username);
 create index idx_sys_user_organization_id on sys_user(organization_id);
 
@@ -23,7 +23,7 @@ create table sys_organization (
   parent_ids varchar(100),
   available bool default false,
   constraint pk_sys_organization primary key(id)
-) charset=utf8 ENGINE=InnoDB;
+) charset=utf8;
 create index idx_sys_organization_parent_id on sys_organization(parent_id);
 create index idx_sys_organization_parent_ids on sys_organization(parent_ids);
 
@@ -38,7 +38,7 @@ create table sys_resource (
   permission varchar(100),
   available bool default false,
   constraint pk_sys_resource primary key(id)
-) charset=utf8 ENGINE=InnoDB;
+) charset=utf8;
 create index idx_sys_resource_parent_id on sys_resource(parent_id);
 create index idx_sys_resource_parent_ids on sys_resource(parent_ids);
 
@@ -49,5 +49,5 @@ create table sys_role (
   resource_ids varchar(100),
   available bool default false,
   constraint pk_sys_role primary key(id)
-) charset=utf8 ENGINE=InnoDB;
+) charset=utf8;
 create index idx_sys_role_resource_ids on sys_role(resource_ids);
