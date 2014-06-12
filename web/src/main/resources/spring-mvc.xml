@@ -7,21 +7,28 @@
 
 	<context:annotation-config />
 
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages/messages" />
-		<property name="fileEncodings" value="utf-8" />
-		<property name="cacheSeconds" value="120" />
-	</bean>
-
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<context:component-scan base-package="org.nifoo.showcase.website.web" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<mvc:annotation-driven/>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages/messages" />
+		<property name="fileEncodings" value="utf-8" />
+		<property name="cacheSeconds" value="120" />
+	</bean>
 
-	<!-- Definition of View Resolver -->
+	<!-- 替换默认的 validator, 使用统一的 messageSource -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+	<mvc:annotation-driven validator="validator" />
+
+	<!-- 视图解析器 -->
 	<bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="contentType" value="text/html" />
@@ -29,23 +36,44 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- <mvc:interceptors></mvc:interceptors> -->
+	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" /> -->
 
-	<mvc:default-servlet-handler />
+	<!-- Local解析器，解析cookie中的locale -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
 
+	<!-- 注入拦截器 -->
+	<mvc:interceptors>
+		<!-- Local切换拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="lang" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 定义异常处理器 -->
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="defaultErrorView" value="error" />
+		<property name="defaultErrorView" value="error/500" />
 		<property name="defaultStatusCode" value="500" />
 		<property name="warnLogCategory" value="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+				<prop key="java.lang.Throwable">error/500</prop>
+			</props>
+		</property>
 	</bean>
+
+	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->
+	<mvc:default-servlet-handler />
 
 	<!-- <mvc:resources mapping="/styles/**" location="/WEB-INF/styles/" /> -->
 	<!-- <mvc:resources mapping="/scripts/**" location="/WEB-INF/scripts/" /> -->
 	<!-- <mvc:resources mapping="/images/**" location="/WEB-INF/images/" /> -->
 
-	<bean id="/user/**" class="org.springframework.web.servlet.mvc.UrlFilenameViewController">
-		<property name="prefix" value="user/" />
-	</bean>
 	<bean id="/admin/**" class="org.springframework.web.servlet.mvc.UrlFilenameViewController">
 		<property name="prefix" value="admin/" />
 	</bean>

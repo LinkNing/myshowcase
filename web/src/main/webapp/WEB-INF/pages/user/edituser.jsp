@@ -1,5 +1,6 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,18 +8,16 @@
 </head>
 <body>
 	<div>
-		<span style="color:red">validation errors：${errors}</span>
-	</div>
-	<div>
-		<form action="save" method="post">
+		<form:form action="save" commandName="user" method="post">
+			<form:errors path="*" cssStyle="color:red" />
 			<fieldset>
 				<legend>User Info:</legend>
-				<input type="hidden" name="id" value="${user.id}" /><br>
-				<label for="username">username</label><input type="text" name="username" value="${user.username}" /><br>
-				<label for="password">password</label><input type="text" name="password" value="${user.password}" /><br>
+				<form:hidden path="id" /><br> 
+				<form:label path="username">username</form:label><form:input path="username"/><br> 
+				<form:label path="password">password</form:label><form:input path="password"/><br>
 			</fieldset>
-			<input type="submit"/>
-		</form>
+			<input type="submit" />
+		</form:form>
 	</div>
 </body>
 </html>

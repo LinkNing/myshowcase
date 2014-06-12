@@ -59,28 +59,31 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(value = { "/edit" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/add", "/change" }, method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(value = "id", required = false) Long id) {
-		ModelAndView mv = new ModelAndView();
 
+		User user = null;
 		if (id != null) {
-			User user = userService.get(id);
-			mv.addObject("user", user);
+			user = userService.get(id);
+		} else {
+			user = new User();
 		}
 
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", user);
 		mv.setViewName("user/edituser");
 		return mv;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@Valid @ModelAttribute("user") User user, Errors errors) {
+		ModelAndView mv = new ModelAndView();
 		if (errors.hasErrors()) {
 			return new ModelAndView("user/edituser");
 		}
-		
+
 		userService.save(user);
 
-		ModelAndView mv = new ModelAndView();
 		// mv.addObject("user", user); // it is not necessary
 		mv.setViewName("redirect:/user/" + user.getId()); // 保存后重定向
 		return mv;
