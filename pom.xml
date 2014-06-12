@@ -30,5 +30,6 @@
 		<module>parent</module>
 		<module>j2se</module>
 		<module>db</module>
+        <module>web</module>
   	</modules>
 </project>
