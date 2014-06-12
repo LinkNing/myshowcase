@@ -29,7 +29,7 @@ public class UserController {
 	@Resource
 	private UserService userService;
 
-	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView welcome() {
 		ModelAndView mv = new ModelAndView();
 		// 添加模型数据 可以是任意的POJO对象
