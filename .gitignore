@@ -2,7 +2,7 @@
 .classpath
 .project
 .settings/
-
+.springBeans
 
 # Intellij project files
 *.iml
