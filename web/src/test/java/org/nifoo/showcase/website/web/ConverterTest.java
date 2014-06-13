@@ -1,6 +1,7 @@
 package org.nifoo.showcase.website.web;
 
 import static org.assertj.core.api.Assertions.*;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class ConverterTest {
 		assertThat(conversionService.convert("1", Boolean.class)).isTrue();
 
 		// "1,2,3,4"--->List（转换完毕的集合大小为4）
-		assertThat(conversionService.convert("1,2,3,4", List.class)).hasSize(4);
+		assertThat((List<Integer>) conversionService.convert("1,2,3,4", List.class)).hasSize(4);
 	}
 
 }
