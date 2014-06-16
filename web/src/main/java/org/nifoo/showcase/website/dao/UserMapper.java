@@ -11,7 +11,7 @@ public interface UserMapper {
 	 */
 	public int add(User user);
 	
-	public User update(User user);
+	public int update(User user);
 
 	public User get(Long id);
 	
@@ -20,5 +20,7 @@ public interface UserMapper {
 	public void delete(Long id);
 
 	public List<User> list();
+	
+	public List<User> findByName(String username);
 
 }
