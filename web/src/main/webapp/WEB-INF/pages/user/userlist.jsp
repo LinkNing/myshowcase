@@ -28,18 +28,21 @@ $(function(){
 <body>
 	<div>
 	<h1>用户列表</h1>
-	<table>
+	<table class="table">
 		<tr>
 			<th>ID</th> 
 			<th>NAME</th> 
+			<th>&nbsp;</th> 
 		</tr>
 		<c:forEach items="${users}" var="user">
 		<tr>
 			<td>${user.id}</td>
 			<td>${user.username}</td>
-			<td><a href="${ctx}/users/${user.id}">查看</a></td>
-			<td><a href="${ctx}/users/${user.id}" class="del" onclick="javascript:void(0)">删除</a></td>
-			<td><a href="${ctx}/users/${user.id}/editor">修改</a></td>
+			<td>
+			<a href="${ctx}/users/${user.id}">查看</a>
+			<a href="${ctx}/users/${user.id}" class="del" onclick="javascript:void(0)">删除</a>
+			<a href="${ctx}/users/${user.id}/editor">修改</a>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>

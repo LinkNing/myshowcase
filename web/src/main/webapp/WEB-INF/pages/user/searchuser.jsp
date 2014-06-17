@@ -7,26 +7,31 @@
 <title>用户查询</title>
 </head>
 <body>
-	<div>
-		<form action="${ctx}/users/searcher">
-			<fieldset>
-				<legend>用户查询:</legend>
-				<label for="n">请输入名字：</label><input type="text" name="username" value="${param.username}">
-			<input type="submit" value="Search">
-			</fieldset>
+	<h1>用户查询</h1>
+	<div class="pull-right">
+		<form action="${ctx}/users/searcher" class="form-inline" role="form">
+			<div class="form-group">
+			    <label class="sr-only" for="username">username</label>
+			    <input type="text" id="username" name="username" class="form-control" value="${param.username}" placeholder="请输入名字">
+			</div>
+			
+			<button type="submit" class="btn btn-default">
+				<span class="glyphicon glyphicon-search"></span>
+				Search
+			</button>			
 		</form>
 	</div>
 	<div>
-		<table>
+		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
 				<th>NAME</th>
 			</tr>
 			<c:forEach items="${users}" var="user">
-				<tr>
-					<td>${user.id}</td>
-					<td>${user.username}</td>
-				</tr>
+			<tr>
+				<td>${user.id}</td>
+				<td>${user.username}</td>
+			</tr>
 			</c:forEach>
 		</table>
 	</div>

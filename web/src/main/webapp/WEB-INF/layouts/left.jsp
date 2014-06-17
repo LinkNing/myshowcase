@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<div id="leftbar" class="span2">
+<div id="leftbar" class="col-md-2">
 	<h1>用户管理</h1>
 	<div class="submenu">
 		<a id="user-welcome-tab" href="${ctx}/users/welcome">欢迎</a>

@@ -2,27 +2,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>编辑用户信息</title>
 </head>
 <body>
 	<div>
-		<form:form action="${ctx}/users" commandName="user" method="put" enctype="application/x-www-form-urlencoded">
+		<form:form action="${ctx}/users" commandName="user" method="put" enctype="application/x-www-form-urlencoded" role="form">
 			<fieldset>
 				<legend>User Info:</legend>
 				<form:hidden path="id" />
+				
+				<div class="form-group">
 				<form:label path="username">username</form:label>
-				<form:input path="username" />
-				<br>
+				<form:input path="username" cssClass="form-control" placeholder="Enter name"/>
+				</div>
+				
+				<div class="form-group">
 				<form:label path="password">password</form:label>
-				<form:input path="password" />
-				<br>
+				<form:password path="password" cssClass="form-control"  placeholder="Enter password"/>
+				</div>
 			</fieldset>
-			<input type="submit" /> 
-			<p>
-			<form:errors path="*" cssStyle="color:red" />
+			
+			<button type="submit" class="btn btn-primary">Submit</button>
+			
+			<div class="has-error">
+			<form:errors path="*" cssClass="help-block"/>
+			</div>
 		</form:form>
 	</div>
 </body>
