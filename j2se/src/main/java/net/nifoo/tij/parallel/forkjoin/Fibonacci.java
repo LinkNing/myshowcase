@@ -1,6 +1,5 @@
 package net.nifoo.tij.parallel.forkjoin;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
@@ -22,12 +21,10 @@ public class Fibonacci extends RecursiveTask<Long> {
 
 		Fibonacci f1 = new Fibonacci(n - 1);
 		Fibonacci f2 = new Fibonacci(n - 2);
-		f1.fork();
-		f2.fork();
-
-		Long fi1 = f1.join();
-		Long fi2 = f2.join();
-		return fi1 + fi2;
+		f2.fork(); // 对第二个子任务进行fork()，即放入线程对应队列的结尾
+		f1.invoke(); // 执行第一个子任务
+		
+		return f1.compute() + f2.join();
 	}
 
 	public static void main(String[] args) {

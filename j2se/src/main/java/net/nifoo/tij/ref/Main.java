@@ -9,11 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes","unused"})
 public class Main {
 
 	private static ReferenceQueue<Entry> refQ = new ReferenceQueue<Entry>();
-
+	
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.fillMem();
@@ -21,9 +21,10 @@ public class Main {
 
 		sleep(1000);
 
-		//		Reference refSoft = main.ref1();
-		//		Reference refWeak = main.ref2();
-		//		Reference refPhantom = main.ref3();
+		// 这里的引用不能少，不然变成无引用，直接被GC回收掉了， ReferenceQueue里监控不到。
+		Reference refSoft = main.ref1();
+		Reference refWeak = main.ref2();
+		Reference refPhantom = main.ref3();
 
 		System.gc();
 
