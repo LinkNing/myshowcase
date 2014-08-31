@@ -16,7 +16,7 @@ public class UserService {
 
 	@Resource
 	private UserMapper userMapper;
-	
+
 	PasswordHelper passwordHelper = new PasswordHelper();
 
 	public User save(User user) {
@@ -27,7 +27,7 @@ public class UserService {
 			userMapper.add(u);
 			log.info("add a new user:{}[{}]", u.getUsername(), u.getId());
 		} else {
-			u = userMapper.update(u);
+			userMapper.update(u);
 			log.info("chang infomation of user:{}[{}]", u.getUsername(), u.getId());
 		}
 		return u;
@@ -44,6 +44,10 @@ public class UserService {
 
 	public List<User> getAll() {
 		return userMapper.list();
+	}
+
+	public List<User> searchByName(String username) {
+		return userMapper.findByName(username + "%");
 	}
 
 }

@@ -15,7 +15,7 @@ public class ShowcaseServer {
 
 	public static void main(String[] args) throws Exception {
 		// 设定Spring的profile
-		Profiles.setProfileAsSystemProperty(Profiles.UNIT_TEST);
+		Profiles.setProfileAsSystemProperty(Profiles.DEVELOPMENT);
 
 		// 启动Jetty
 		Server server = JettyFactory.createServerInSource(PORT, CONTEXT);

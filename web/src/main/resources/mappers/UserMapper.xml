@@ -43,5 +43,10 @@
 		select id, username, password, salt, locked 
 		from sys_user where username = #{username}
 	</select>
+	
+		<select id="findByName" parameterType="string" resultType="User" resultMap="userResultMap">
+		select id, username, password, salt, locked 
+		from sys_user where username like #{username}
+	</select>
 
 </mapper>

@@ -1,22 +1,35 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>编辑用户信息</title>
 </head>
 <body>
 	<div>
-		<form:form action="save" commandName="user" method="post">
-			<form:errors path="*" cssStyle="color:red" />
+		<form:form action="${ctx}/users" commandName="user" method="put" enctype="application/x-www-form-urlencoded" role="form">
 			<fieldset>
 				<legend>User Info:</legend>
-				<form:hidden path="id" /><br> 
-				<form:label path="username">username</form:label><form:input path="username"/><br> 
-				<form:label path="password">password</form:label><form:input path="password"/><br>
+				<form:hidden path="id" />
+				
+				<div class="form-group">
+				<form:label path="username">username</form:label>
+				<form:input path="username" cssClass="form-control" placeholder="Enter name"/>
+				</div>
+				
+				<div class="form-group">
+				<form:label path="password">password</form:label>
+				<form:password path="password" cssClass="form-control"  placeholder="Enter password"/>
+				</div>
 			</fieldset>
-			<input type="submit" />
+			
+			<button type="submit" class="btn btn-primary">Submit</button>
+			
+			<div class="has-error">
+			<form:errors path="*" cssClass="help-block"/>
+			</div>
 		</form:form>
 	</div>
 </body>

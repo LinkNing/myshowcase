@@ -1,4 +1,4 @@
-DELIMITER ;
+#DELIMITER ;
 delete from sys_user;
 delete from sys_role;
 delete from sys_resource;

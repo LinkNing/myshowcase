@@ -1,15 +1,14 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<div id="leftbar" class="span2">
+<div id="leftbar" class="col-md-2">
 	<h1>用户管理</h1>
 	<div class="submenu">
-		<a id="user-welcome-tab"href="${ctx}/user/">欢迎</a>
-		<a id="user-list-tab"href="${ctx}/user/list">用户列表</a>
-		<a id="user-search-tab"href="${ctx}/user/search">查找用户</a>
-		<a id="user-add-tab"href="${ctx}/user/add">添加用户</a>
-		<a id="user-change-tab"href="${ctx}/user/change">修改用户</a>
-		<a id="user-del-tab"href="${ctx}/user/delete">删除用户</a>
+		<a id="user-welcome-tab" href="${ctx}/users/welcome">欢迎</a>
+		<a id="user-list-tab" href="${ctx}/users">用户列表</a>
+		<a id="user-search-tab" href="${ctx}/users/searcher">查找用户</a>
+		<a id="user-add-tab" href="${ctx}/users/editor">添加用户</a>
+		<a id="user-change-tab" href="${ctx}/users/editor">修改用户</a>
 	</div>
 	<h1>XXXX</h1>
 	<div class="submenu">
