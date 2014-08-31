@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nifoo.showcase.website.dao.RoleMapper">
+
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" />
+
+	<insert id="add" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO sys_role
+	            (role,
+	             description,
+	             resource_ids,
+	             available)
+		VALUES (#{role},
+		        #{description},
+		        #{resourceIds},
+		        #{available});
+	]]>
+	</insert>
+
+	<update id="update" parameterType="Role">
+	<![CDATA[
+		UPDATE sys_role
+		SET role = #{role},
+		  description = #{description},
+		  resource_ids = #{resourcIds},
+		  available = #{available}
+		WHERE id = #{id};
+	]]>
+	</update>
+
+	<delete id="delete" parameterType="long">
+		delete from sys_role where id = #{id}
+	</delete>
+
+	<select id="get" parameterType="long" resultType="Role">
+	<![CDATA[
+		SELECT
+		  id,
+		  role,
+		  description,
+		  resource_ids,
+		  available
+		FROM sys_role
+		WHERE id = #{id}
+	]]>
+	</select>
+
+	<select id="list" resultType="Role">
+	<![CDATA[
+		SELECT
+		  id,
+		  role,
+		  description,
+		  resource_ids,
+		  available
+		FROM sys_role
+	]]>
+	</select>
+
+	<select id="getByName" parameterType="string" resultType="Role" >
+	<![CDATA[
+		SELECT
+		  id,
+		  role,
+		  description,
+		  resource_ids,
+		  available
+		FROM sys_role
+		WHERE role = #{role}
+	]]>
+	</select>
+
+</mapper>

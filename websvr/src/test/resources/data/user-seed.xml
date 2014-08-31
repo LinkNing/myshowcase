@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<sys_user id="1" USERNAME="admin1" PASSWORD="123" SALT="Administrator1" />
+	<sys_user id="2" USERNAME="admin2" PASSWORD="123" SALT="Administrator2" />
+	<sys_user id="3" USERNAME="admin3" PASSWORD="123" SALT="Administrator3" />
+	<sys_user id="4" USERNAME="admin4" PASSWORD="123" SALT="Administrator4" />
+</dataset>

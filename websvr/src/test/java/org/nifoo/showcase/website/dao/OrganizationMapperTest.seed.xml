@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<sys_organization id="1" name="总公司" parent_id="0" parent_ids="0/" available="true" />
+	<sys_organization id="2" name="分公司1" parent_id="1" parent_ids="0/1/" available="true" />
+	<sys_organization id="3" name="分公司11" parent_id="2" parent_ids="0/1/2/" available="true" />
+</dataset>
