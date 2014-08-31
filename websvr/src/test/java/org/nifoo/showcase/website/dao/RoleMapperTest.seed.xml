@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<sys_role id="1" role="admin" description="超级管理员" resource_ids="11,21,31,41" available="true" />
+	<sys_role id="2" role="user" description="普通用户" resource_ids="11,21" available="true" />
+</dataset>

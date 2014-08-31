@@ -1,0 +1,22 @@
+<form name="form" class="css-form" novalidate role="form">
+	<fieldset>
+		<legend>User Info:</legend>
+		<input type="hidden" ng-model="user.id" />
+		
+		<div class="form-group">
+		<label for="username">username</label>
+		<input type="text" ng-model="user.username" class="form-control" placeholder="Enter name"/>
+		</div>
+		
+		<div class="form-group">
+		<label for="password">password</label>
+		<input type="text" ng-model="user.password" class="form-control" placeholder="Enter password"/>
+		</div>
+	</fieldset>
+	
+	<button class="btn btn-default" ng-click="reset()" ng-disabled="isUnchanged(user)">Reset</button>
+	<button class="btn btn-primary" ng-click="save(user)" ng-disabled="form.$invalid || isUnchanged(user)">Submit</button>
+	
+	<div class="has-error">
+	</div>
+</form>

@@ -1,0 +1,16 @@
+<h1>用户列表</h1>
+<table class="table">
+	<tr>
+		<th>ID</th> 
+		<th>NAME</th> 
+		<th>&nbsp;</th> 
+	</tr>
+	<tr ng-repeat="user in users">
+		<td>{{user.id}}</td>
+		<td>{{user.username}}</td>
+		<td><a href="#/users/{{user.id}}" class="btn btn-link">查看</a>
+			<button type="button" class="btn btn-link" ng-click="remove(user)">删除</button>
+			<a href="#/users/{{user.id}}/editor" class="btn btn-link">修改</a>
+		</td>
+	</tr>
+</table>

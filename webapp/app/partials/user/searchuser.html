@@ -1,0 +1,26 @@
+<h1>用户查询</h1>
+<div class="pull-right">
+	<form class="form-inline" role="form">
+		<div class="form-group">
+		    <label class="sr-only" for="username">username</label>
+		    <input type="text" ng-model="username" class="form-control" placeholder="请输入名字">
+		</div>
+		
+		<button ng-click="search(username)" class="btn btn-default">
+			<span class="glyphicon glyphicon-search"></span>
+			Search
+		</button>
+	</form>
+</div>
+<div>
+	<table class="table table-bordered">
+		<tr>
+			<th>ID</th>
+			<th>NAME</th>
+		</tr>
+		<tr ng-repeat="user in users">
+			<td>{{user.id}}</td>
+			<td>{{user.username}}</td>
+		</tr>
+	</table>
+</div>

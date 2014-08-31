@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" ng-app="showcase">
+<head>
+<title>Showcase :: Webapp</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type="image/x-icon" href="img/favicon.ico" rel="shortcut icon">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/default.min.css">
+</head>
+<body>
+<div class="container">
+<div id="header" class="row">
+	<div><h1>Showcase示例<small>--基于Spring MVC 和 Angular 的 Web APP 开发演示</small></h1></div>
+	<div class="pull-right">
+		<span>welcome</span>
+	</div>
+</div>
+
+<div class="row" ng-controller="MainCtrl">
+	<div id="leftbar" class="col-md-2 col-sm-2">
+	<ul class="nav nav-pills nav-stacked">
+		<li ng-repeat="item in menu"><a href="#/{{item.url}}" ng-class="{active: currentItem.id == item.id}">{{ item.name }}</a></li>
+	</ul>
+	</div>
+
+	<div class="col-md-10 col-sm-10">
+		<div ng-view></div>
+	</div>
+</div>
+
+<div id="footer" class="row">
+	Copyright &copy; 2014 <a href="https://github.com/LinkNing/myshowcase">My Showcase</a>
+</div>
+
+</div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
+</body>
+</html>
