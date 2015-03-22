@@ -63,15 +63,13 @@
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en" />
 	</bean>
-
+	
 	<!-- 注入拦截器 -->
 	<mvc:interceptors>
 		<!-- Local切换拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-				<property name="paramName" value="lang" />
-			</bean>
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
