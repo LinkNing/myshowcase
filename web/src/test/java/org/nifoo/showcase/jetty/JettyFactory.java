@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.NetworkTrafficServerConnector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.webapp.WebAppClassLoader;
 import org.eclipse.jetty.webapp.WebAppContext;
 
@@ -24,19 +24,25 @@ public class JettyFactory {
 	 * 创建用于开发运行调试的Jetty Server, 以src/main/webapp为Web应用目录.
 	 */
 	public static Server createServerInSource(int port, String contextPath) {
+		// Create a Server instance
+		//
 		Server server = new Server();
 		// 设置在JVM退出时关闭Jetty的钩子。
 		server.setStopAtShutdown(true);
 
-		SelectChannelConnector connector = new SelectChannelConnector();
+		// Add/Configure Connectors.
+		//
+		NetworkTrafficServerConnector connector = new NetworkTrafficServerConnector(server);
 		connector.setPort(port);
 		// 解决Windows下重复启动Jetty居然不报告端口冲突的问题.
 		connector.setReuseAddress(false);
 		server.setConnectors(new Connector[] { connector });
 
+		// Add/Configure Handlers and/or Contexts and/or Servlets.
+		// 
 		WebAppContext webContext = new WebAppContext(DEFAULT_WEBAPP_PATH, contextPath);
 		// 修改webdefault.xml，解决Windows下Jetty Lock住静态文件的问题.
-		//webContext.setDefaultsDescriptor(WINDOWS_WEBDEFAULT_PATH);
+		webContext.setDefaultsDescriptor(WINDOWS_WEBDEFAULT_PATH);
 		server.setHandler(webContext);
 
 		return server;

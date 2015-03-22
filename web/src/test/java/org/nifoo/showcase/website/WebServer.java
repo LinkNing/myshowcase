@@ -7,10 +7,10 @@ import org.nifoo.showcase.jetty.JettyFactory;
  * 使用Jetty运行调试Web应用, 在Console快速重载应用.
  * 
  */
-public class ShowcaseServer {
+public class WebServer {
 
 	public static final int PORT = 8080;
-	public static final String CONTEXT = "/showcase-website";
+	public static final String CONTEXT = "/";
 	public static final String[] TLD_JAR_NAMES = new String[] { "sitemesh", "spring-webmvc", "shiro-web" };
 
 	public static void main(String[] args) throws Exception {
