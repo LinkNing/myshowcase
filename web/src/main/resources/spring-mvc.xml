@@ -92,10 +92,12 @@
 	<!-- <mvc:resources mapping="/styles/**" location="/WEB-INF/styles/" /> -->
 	<!-- <mvc:resources mapping="/scripts/**" location="/WEB-INF/scripts/" /> -->
 	<!-- <mvc:resources mapping="/images/**" location="/WEB-INF/images/" /> -->
-
+	
 	<bean id="/admin/**" class="org.springframework.web.servlet.mvc.UrlFilenameViewController">
 		<property name="prefix" value="admin/" />
 	</bean>
+	
+	<bean id="/**" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
 	<mvc:view-controller path="/" view-name="index" />
 

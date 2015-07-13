@@ -1,4 +1,4 @@
-package org.nifoo.showcase.website;
+package org.nifoo.showcase;
 
 public class Profiles {
 
