@@ -10,13 +10,13 @@
 
 	<properties>
 		<!-- 主要依赖库的版本定义 -->
-		<springside.version>4.2.2.GA</springside.version>
-		<spring.version>4.0.4.RELEASE</spring.version>
-		<spring-ldap.version>2.0.1.RELEASE</spring-ldap.version>
+		<spring-boot.version>1.2.1.RELEASE</spring-boot.version>
+		<spring.version>4.1.7.RELEASE</spring.version>
+		<spring-ldap.version>2.0.3.RELEASE</spring-ldap.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
-		<mybatis.version>3.2.7</mybatis.version>
+		<mybatis.version>3.3.0</mybatis.version>
 		<spring-data-jpa.version>1.5.2.RELEASE</spring-data-jpa.version>
-		<tomcat-jdbc.version>7.0.53</tomcat-jdbc.version>
+		<tomcat-jdbc.version>7.0.62</tomcat-jdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<shiro.version>1.2.3</shiro.version>
 		<cxf.version>2.7.11</cxf.version>
@@ -29,44 +29,45 @@
 		<jolokia.version>1.2.1</jolokia.version>
 		<hystrix.version>1.3.13</hystrix.version>
 		<javasimon.version>3.4.0</javasimon.version>
+		<metrics.version>3.1.2</metrics.version>
 		<jackson.version>2.3.3</jackson.version>
-		<slf4j.version>1.7.7</slf4j.version>
-		<logback.version>1.1.2</logback.version>
-		<commons-lang3.version>3.3.2</commons-lang3.version>
+		<slf4j.version>1.7.12</slf4j.version>
+		<logback.version>1.1.3</logback.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
 		<commons-io.version>2.4</commons-io.version>
-		<guava.version>17.0</guava.version>
+		<guava.version>18.0</guava.version>
 		<joda-time.version>2.3</joda-time.version>
 		<dozer.version>5.5.1</dozer.version>
 		<httpclient.version>4.3.3</httpclient.version>
-		<freemarker.version>2.3.20</freemarker.version>
+		<freemarker.version>2.3.23</freemarker.version>
 		<aspectj.version>1.7.4</aspectj.version>
 		<junit.version>4.11</junit.version>
 		<dbunit.version>2.5.0</dbunit.version>
 		<spring-test-dbunit.version>1.1.0</spring-test-dbunit.version>
-		<assertj.version>1.6.0</assertj.version>
-		<mockito.version>1.9.5</mockito.version>
+		<assertj.version>3.1.0</assertj.version>
+		<mockito.version>1.10.19</mockito.version>
 		<powermock.version>1.5.4</powermock.version>
 		<selenium.version>2.41.0</selenium.version>
 		<nosqlunit.version>0.7.9</nosqlunit.version>
-		<jetty.version>8.1.15.v20140411</jetty.version>
-		<h2.version>1.3.175</h2.version>
-		<mysql.version>5.1.22</mysql.version>
+		<jetty.version>9.2.11.v20150529</jetty.version>
+		<h2.version>1.4.186</h2.version>
+		<mysql.version>5.1.34</mysql.version>
 
 		<!-- Plugin的属性 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.6</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<prerequisites>
 		<maven>3.0.0</maven>
 	</prerequisites>
 
-	<!-- 设定除中央仓库 (repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查询，如有Nexus私服, 取消注释并指向正确的服务器地址 <repositories> <repository> <id>nexus</id> 
-		<name>Team Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> </repository> </repositories> -->
+	<!-- 设定除中央仓库 (repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查询，如有Nexus私服, 取消注释并指向正确的服务器地址 -->
+	<!-- <repositories> <repository> <id>nexus</id> <name>Team Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> 
+		</repository> </repositories> -->
 
-	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址 <pluginRepositories> <pluginRepository> <id>nexus</id> <name>Team Nexus Repository</name> 
-		<url>http://localhost:8081/nexus/content/groups/public</url> <snapshots> <enabled>false</enabled> </snapshots> </pluginRepository> 
-		</pluginRepositories> -->
+	<!-- <pluginRepositories> <pluginRepository> <id>nexus</id> <name>Team Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> 
+		<snapshots> <enabled>false</enabled> </snapshots> </pluginRepository> </pluginRepositories> -->
 
 	<!-- 预定义依赖项的version,scope与exclusions,子项目中只需定义groupId 与 artifactId 即可 -->
 	<dependencyManagement>
@@ -78,23 +79,6 @@
 				<version>${spring.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springside</groupId>
-				<artifactId>springside-core</artifactId>
-				<version>${springside.version}</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springside</groupId>
-				<artifactId>springside-extension</artifactId>
-				<version>${springside.version}</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springside</groupId>
-				<artifactId>springside-metrics</artifactId>
-				<version>${springside.version}</version>
 			</dependency>
 			<!-- SPRINGSIDE MODULES end -->
 
@@ -193,7 +177,7 @@
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
-				<version>3.0.1</version>
+				<version>3.1.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -398,6 +382,40 @@
 				<version>${javasimon.version}</version>
 			</dependency>
 			<!-- Monitor end -->
+
+			<!-- Metrics begin -->
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-core</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-annotation</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-jvm</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-healthchecks</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-graphite</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-servlets</artifactId>
+				<version>${metrics.version}</version>
+			</dependency>
+			<!-- Metrics end -->
+
 
 			<!-- JSR303 Bean Validator -->
 			<dependency>
@@ -761,7 +779,7 @@
 
 			<!-- jetty -->
 			<dependency>
-				<groupId>org.eclipse.jetty.aggregate</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-webapp</artifactId>
 				<version>${jetty.version}</version>
 				<scope>test</scope>
@@ -769,6 +787,12 @@
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-jsp</artifactId>
+				<version>${jetty.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-annotations</artifactId>
 				<version>${jetty.version}</version>
 				<scope>test</scope>
 			</dependency>

@@ -12,19 +12,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-class ForkJoinTask extends RecursiveAction {
+class Task extends RecursiveAction {
 	final long[] array;
 	final int lo;
 	final int hi;
 	private int THRESHOLD = 4; //For demo only
 
-	public ForkJoinTask(long[] array) {
+	public Task(long[] array) {
 		this.array = array;
 		this.lo = 0;
 		this.hi = array.length - 1;
 	}
 
-	public ForkJoinTask(long[] array, int lo, int hi) {
+	public Task(long[] array, int lo, int hi) {
 		this.array = array;
 		this.lo = lo;
 		this.hi = hi;
@@ -37,7 +37,7 @@ class ForkJoinTask extends RecursiveAction {
 			int pivot = partition(array, lo, hi);
 			//System.out.printf("\npivot = %d, low = %d, high = %d", pivot, lo, hi);
 			//System.out.printf("\narray %s\n", Arrays.toString(array));
-			invokeAll(new ForkJoinTask(array, lo, pivot - 1), new ForkJoinTask(array, pivot + 1, hi));
+			invokeAll(new Task(array, lo, pivot - 1), new Task(array, pivot + 1, hi));
 		}
 	}
 
@@ -82,7 +82,7 @@ public class TestForkJoinSimple {
 
 	@Test
 	public void testSort() throws Exception {
-		ForkJoinTask sort = new ForkJoinTask(array);
+		Task sort = new Task(array);
 		ForkJoinPool fjpool = new ForkJoinPool();
 		fjpool.submit(sort);
 		fjpool.shutdown();

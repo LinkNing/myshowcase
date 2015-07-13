@@ -1,21 +1,21 @@
-package org.nifoo.showcase.website;
+package org.nifoo.showcase.server;
 
 import org.eclipse.jetty.server.Server;
-import org.nifoo.showcase.jetty.JettyFactory;
+import org.nifoo.showcase.server.jetty.JettyFactory;
 
 /**
  * 使用Jetty运行调试Web应用, 在Console快速重载应用.
  * 
+ * @author Ning Feng
+ * 
  */
-public class ShowcaseServer {
+public class WebServer {
 
 	public static final int PORT = 8080;
-	public static final String CONTEXT = "/showcase-website";
+	public static final String CONTEXT = "/";
 	public static final String[] TLD_JAR_NAMES = new String[] { "sitemesh", "spring-webmvc", "shiro-web" };
 
 	public static void main(String[] args) throws Exception {
-		// 设定Spring的profile
-		Profiles.setProfileAsSystemProperty(Profiles.DEVELOPMENT);
 
 		// 启动Jetty
 		Server server = JettyFactory.createServerInSource(PORT, CONTEXT);
@@ -25,6 +25,7 @@ public class ShowcaseServer {
 			System.out.println("[HINT] Don't forget to set -XX:MaxPermSize=128m");
 
 			server.start();
+			// server.dump(System.err);
 			System.out.println("Server running at http://localhost:" + PORT + CONTEXT);
 			System.out.println("[HINT] Hit Enter to reload the application quickly");
 

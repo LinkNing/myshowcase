@@ -12,7 +12,7 @@
 	</div>
 	<h1>XXXX</h1>
 	<div class="submenu">
-		<a id="web-tab" href="${ctx}/">XXX</a>
+		<a id="web-tab" href="${ctx}/admin/welcome">welcome</a>
 		<a id="webservice-tab"href="${ctx}/">XXX</a>
 		<a id="hystrix-tab" href="${ctx}/">XXX</a>
 		<a id="jmx-tab" href="${ctx}/">XXX</a>
