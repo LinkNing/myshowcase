@@ -368,13 +368,18 @@
 
 		<!-- jetty -->
 		<dependency>
-			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jsp</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-annotations</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
