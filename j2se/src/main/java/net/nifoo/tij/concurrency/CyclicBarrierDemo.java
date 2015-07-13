@@ -51,6 +51,8 @@ public class CyclicBarrierDemo {
 		 * 下午各个小组自由活动，然后在某个点，比如11点半集合到大巴上。
 		 */
 		tourInTheAfternoon(service, cb);
+		
+		tourOver = true;
 
 		/*
 		 * 下午小组集合完毕后，一天的观光就结束了，将标志位记为true;
