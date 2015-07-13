@@ -31,5 +31,6 @@
 		<module>j2se</module>
 		<module>db</module>
         <module>web</module>
+        <module>websvr</module>
   	</modules>
 </project>
