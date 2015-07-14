@@ -130,6 +130,17 @@
 				<artifactId>maven-site-plugin</artifactId>
 			</plugin>
 
+			<!-- jetty plus -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+					<useTestScope>true</useTestScope>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -247,9 +258,8 @@
 
 		<!-- j2ee web spec -->
 		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> <scope>provided</scope> </dependency> 
-			<dependency> <groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> </dependency> <dependency> <groupId>javax.servlet</groupId> 
-			<artifactId>jsp-api</artifactId> <scope>provided</scope> <exclusions> <exclusion> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> 
-			</exclusion> </exclusions> </dependency> -->
+			<dependency> <groupId>javax.servlet</groupId> <artifactId>jsp-api</artifactId> <scope>provided</scope> </dependency> <dependency> 
+			<groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> <scope>provided</scope> </dependency> -->
 		<!-- WEB end -->
 
 		<!-- LOGGING begin -->
@@ -390,6 +400,7 @@
 		<!-- === test end === -->
 
 		<!-- jetty -->
+		<!-- It can be replaced by jetty-maven-plugin, in that case, you need to comment these dependency. -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
